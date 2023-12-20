@@ -1,7 +1,12 @@
-import StoreProvider from "@/lib/redux/Provider";
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
-import Navigation from "./components/Navigation";
+import StoreProvider from "./Provider";
+import Navigation from "@/components/Navigation";
+import "../styles/global.scss";
+
+import { config } from '@fortawesome/fontawesome-svg-core'
+import '@fortawesome/fontawesome-svg-core/styles.css'
+config.autoAddCss = false
 
 const inter = Inter({ subsets: ["latin"] });
 

@@ -1,7 +1,7 @@
 import Image from "next/image";
-import logo from "../../../public/logo.png";
-import styles from "./navigation.module.scss";
 import Link from "next/link";
+import logo from "../../public/logo.png";
+import styles from "./navigation.module.scss";
 
 function Navigation() {
   return (
