@@ -1,31 +1,43 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import styles from "./locationCard.module.scss";
 import { faChevronRight } from "@fortawesome/free-solid-svg-icons";
+import Skeleton from "react-loading-skeleton";
 
 type Props = {
   name: string;
   type: string;
   dimension: string;
   resident_count: number;
+  loading: boolean;
 };
 
-const LocationCard = ({ name, type, dimension, resident_count }: Props) => {
+const LocationCard = ({
+  name,
+  type,
+  dimension,
+  resident_count,
+  loading,
+}: Props) => {
   return (
     <div className={styles.card}>
       <div className={styles.information}>
-        <p>Name:</p>
-        <p>Type:</p>
-        <p>Dimension:</p>
-        <p>Resident count:</p>
+        <p>{loading ? <Skeleton width="50%" /> : "Name:"}</p>
+        <p>{loading ? <Skeleton width="50%" /> : "Type:"}</p>
+        <p>{loading ? <Skeleton width="50%" /> : "Dimension:"}</p>
+        <p>{loading ? <Skeleton width="50%" /> : "Resident count:"}</p>
       </div>
       <div className={styles.data}>
-        <p>{name}</p>
-        <p>{type}</p>
-        <p>{dimension ? dimension : "-"}</p>
-        <p>{resident_count}</p>
+        <p>{loading ? <Skeleton width="70%" /> : name}</p>
+        <p>{loading ? <Skeleton width="70%" /> : type}</p>
+        <p>{loading ? <Skeleton width="70%" /> : dimension ? dimension : "-"}</p>
+        <p>{loading ? <Skeleton width="70%" /> : resident_count}</p>
       </div>
       <div className={styles.nav}>
-        <FontAwesomeIcon icon={faChevronRight} size="2xl" />
+        {loading ? (
+          <Skeleton height="100%" />
+        ) : (
+          <FontAwesomeIcon icon={faChevronRight} size="2xl" />
+        )}
       </div>
     </div>
   );
