@@ -3,6 +3,7 @@ import styles from "./locationCard.module.scss";
 import { faChevronRight } from "@fortawesome/free-solid-svg-icons";
 import Skeleton from "react-loading-skeleton";
 import Link from "next/link";
+import slugify from "slugify";
 
 type Props = {
   id: number;
@@ -41,7 +42,13 @@ const LocationCard = ({
         {loading ? (
           <Skeleton height="100%" />
         ) : (
-          <Link href={`location/${id}`}>
+          <Link
+            href={`location/${slugify(name, {
+              replacement: "-",
+              remove: /[*+~.()'"!:@]/g,
+              lower: true,
+            })}-${id}`}
+          >
             <FontAwesomeIcon icon={faChevronRight} size="2xl" color="black" />
           </Link>
         )}

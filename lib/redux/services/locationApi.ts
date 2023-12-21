@@ -2,6 +2,7 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 import { Locations } from "@/types/locations";
 import { Characters } from "@/types/characters";
+import { Status } from "@/types/general";
 
 export const locationsAPI = createApi({
   reducerPath: "locationsAPI",
@@ -15,9 +16,12 @@ export const locationsAPI = createApi({
     }),
     getCharactersByLocation: builder.query<
       Characters,
-      { id: number; page: number }
+      { id: number; status: string; page: number }
     >({
-      query: ({ id, page }) => `character?location=${id}&page=${page}`,
+      query: ({ id, page, status = "all" }) =>
+        status === "all"
+          ? `character?location=${id}&page=${page}`
+          : `character?location=${id}&status=${status}&page=${page}`,
     }),
   }),
 });
