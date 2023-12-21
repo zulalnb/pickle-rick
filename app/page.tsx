@@ -1,14 +1,21 @@
 // maps to root `/` URL
 "use client";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useGetLocationsByPageQuery } from "@/lib/redux/services/locationApi";
 import Pagination from "@/components/Pagination";
 import LocationCard from "@/components/LocationCard";
 import "./home.scss";
+import { useRouter } from "next/navigation";
 
 export default function Page() {
   const [page, setPage] = useState(1);
   const { data, isLoading = false, isError } = useGetLocationsByPageQuery(page);
+
+  const router = useRouter();
+
+  useEffect(() => {
+    router.replace(`?page=${page}`);
+  }, [page]);
 
   if (isError) {
     return <div>Error</div>;
