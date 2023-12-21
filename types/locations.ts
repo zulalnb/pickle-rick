@@ -1,11 +1,6 @@
-export interface Info {
-  count: number;
-  pages: number;
-  next: string | null;
-  prev: string | null;
-}
+import { Info } from "./general";
 
-export interface Result {
+export interface Location {
   id: number;
   name: string;
   type: string;
@@ -15,5 +10,5 @@ export interface Result {
 
 export interface Locations {
   info: Info;
-  results: Result[];
+  results: Location[];
 }

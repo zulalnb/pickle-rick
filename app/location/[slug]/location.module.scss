@@ -1,0 +1,15 @@
+.wrapper {
+  display: grid;
+  grid-auto-columns: max-content;
+  grid-auto-flow: column;
+  grid-auto-columns: calc(100% - 4rem);
+  grid-template-rows: 1fr;
+  overflow-x: auto;
+  gap: 60px;
+
+  @media (min-width: 640px) {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 40px;
+    grid-auto-flow: row;
+  }
+}

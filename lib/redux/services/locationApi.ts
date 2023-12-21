@@ -1,6 +1,7 @@
 // Import the createApi and fetchBaseQuery functions from the RTK Query library
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 import { Locations } from "@/types/locations";
+import { Characters } from "@/types/characters";
 
 export const locationsAPI = createApi({
   reducerPath: "locationsAPI",
@@ -12,10 +13,17 @@ export const locationsAPI = createApi({
     getLocationsByPage: builder.query<Locations, number | void>({
       query: (page = 1) => `location?page=${page}`,
     }),
-    getLocationDetail: builder.query<any, number | void>({
-      query: (id) => `location/${id}`,
+    getCharactersByLocation: builder.query<
+      Characters,
+      { id: number; page: number }
+    >({
+      query: ({ id, page }) => `character?location=${id}&page=${page}`,
     }),
   }),
 });
 
-export const { useGetLocationsByPageQuery } = locationsAPI;
+export const { useGetLocationsByPageQuery, useGetCharactersByLocationQuery } =
+  locationsAPI;
+
+export const { getLocationsByPage, getCharactersByLocation } =
+  locationsAPI.endpoints;

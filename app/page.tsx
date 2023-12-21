@@ -18,11 +18,12 @@ export default function Page() {
 
   return (
     <div className="container">
-      <div className="wrapper">
+      <div className="wrapper gap-10">
         {!isLoading &&
           data?.results.map((location) => (
             <LocationCard
               key={location.id}
+              id={location.id}
               name={location.name}
               type={location.type}
               dimension={location.dimension}
@@ -34,6 +35,7 @@ export default function Page() {
           loadingCardArray.map((item) => (
             <LocationCard
               key={item}
+              id={item}
               name="loading"
               type="loading"
               dimension="loading"
