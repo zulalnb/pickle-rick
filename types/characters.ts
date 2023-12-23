@@ -29,3 +29,8 @@ export interface Characters {
   info: Info;
   results: Character[];
 }
+
+export interface CharacterDetail {
+  character: Character;
+  moreCharacter: Characters;
+}
