@@ -1,10 +1,11 @@
 "use client";
 import { useEffect, useState } from "react";
+import { useRouter } from "next/navigation";
+import classNames from "classnames";
 import styles from "./location.module.scss";
 import { useGetCharactersByLocationQuery } from "@/lib/redux/services/locationApi";
 import CharacterCard from "@/components/CharacterCard";
 import Pagination from "@/components/Pagination";
-import { useRouter } from "next/navigation";
 import FilterButton from "@/components/FilterButton";
 
 type PageParams = {
@@ -21,7 +22,11 @@ export default function Page({ params }: PageProps) {
   const id = params.slug.split("-").slice(-1)[0];
   const [page, setPage] = useState(1);
   const [filter, setFilter] = useState<string>("all");
-  const { data, isError, isLoading } = useGetCharactersByLocationQuery({
+  const {
+    data = { results: [], info: { pages: 0, count: 0 } },
+    isError,
+    isLoading,
+  } = useGetCharactersByLocationQuery({
     id: Number(id),
     status: filter,
     page,
@@ -48,6 +53,7 @@ export default function Page({ params }: PageProps) {
     router.replace(
       filter !== status ? `?status=${status}&page=${page}` : `?page=${page}`
     );
+    setPage(1);
   };
 
   return (
@@ -66,7 +72,11 @@ export default function Page({ params }: PageProps) {
           />
         ))}
       </div>
-      <div className={styles.wrapper}>
+      <div
+        className={classNames(styles.wrapper, {
+          "justify-start": data.info.count < 3,
+        })}
+      >
         {data?.results.map((character) => (
           <CharacterCard
             key={character.id}
@@ -75,11 +85,12 @@ export default function Page({ params }: PageProps) {
             image={character.image}
             status={character.status}
             species={character.species}
+            type="list"
           />
         ))}
       </div>
       <Pagination
-        totalPageCount={data?.info.pages}
+        totalPageCount={data?.info.count}
         currentPage={page}
         onPageChange={(currPage) => setPage(currPage)}
       />

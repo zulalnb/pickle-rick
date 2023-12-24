@@ -1,24 +1,13 @@
 .wrapper {
-  display: grid;
-  grid-auto-columns: max-content;
-  grid-auto-flow: column;
-  grid-auto-columns: calc(100% - 4rem);
-  grid-template-rows: 1fr;
+  display: flex;
+  justify-content: space-between;
   overflow-x: auto;
-  overflow-y: hidden;
-  gap: 60px;
+  gap: 64px;
   scrollbar-width: none;
   -ms-overflow-style: none;
 
   &::-webkit-scrollbar {
     display: none;
-  }
-
-  @media (min-width: 640px) {
-    grid-template-columns: repeat(3, minmax(0, 1fr));
-    gap: 40px;
-    grid-auto-flow: row;
-    overflow-y: hidden;
   }
 }
 
