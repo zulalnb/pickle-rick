@@ -3,10 +3,14 @@ import "./pagination.scss";
 import usePagination, { DOTS } from "@/lib/hooks/usePagination";
 import classNames from "classnames";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faChevronLeft, faChevronRight } from "@fortawesome/free-solid-svg-icons";
+import {
+  faChevronLeft,
+  faChevronRight,
+} from "@fortawesome/free-solid-svg-icons";
 
 type Props = {
   totalPageCount?: number;
+  totalDataCount?: number;
   currentPage: number;
   onPageChange: (page: number) => void;
   siblingCount?: number;
@@ -14,6 +18,7 @@ type Props = {
 
 const Pagination = ({
   totalPageCount = 0,
+  totalDataCount = 0,
   currentPage,
   onPageChange,
   siblingCount = 1,
@@ -24,7 +29,7 @@ const Pagination = ({
     siblingCount,
   });
 
-  if (currentPage === 0 || (paginationRange && paginationRange.length < 2)) {
+  if (totalDataCount === 0) {
     return null;
   }
 

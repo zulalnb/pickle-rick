@@ -4,7 +4,7 @@ export const DOTS = -1;
 
 const range = (start: number, end: number) => {
   let length = end - start + 1;
-  return Array.from({ length }, (_, idx) => (idx + start));
+  return Array.from({ length }, (_, idx) => idx + start);
 };
 
 type Props = {
@@ -19,7 +19,6 @@ const usePagination = ({
   totalPageCount,
 }: Props) => {
   const paginationRange = useMemo(() => {
-
     const totalPageNumbers = siblingCount + 5;
 
     if (totalPageNumbers + 1 >= totalPageCount) {
@@ -58,9 +57,8 @@ const usePagination = ({
       let middleRange = range(leftSiblingIndex, rightSiblingIndex);
       return [firstPageIndex, DOTS, ...middleRange, DOTS, lastPageIndex];
     }
-  
   }, [totalPageCount, siblingCount, currentPage]);
-  return paginationRange || [];
+  return paginationRange;
 };
 
 export default usePagination;

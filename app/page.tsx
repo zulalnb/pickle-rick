@@ -9,7 +9,11 @@ import { useRouter } from "next/navigation";
 
 export default function Page() {
   const [page, setPage] = useState(1);
-  const { data, isLoading = false, isError } = useGetLocationsByPageQuery(page);
+  const {
+    data = { results: [], info: { count: 0, pages: 0 } },
+    isLoading = false,
+    isError,
+  } = useGetLocationsByPageQuery(page);
 
   const router = useRouter();
 
@@ -51,7 +55,8 @@ export default function Page() {
             />
           ))}
         <Pagination
-          totalPageCount={data?.info.pages}
+          totalDataCount={data?.info?.count}
+          totalPageCount={data?.info?.pages}
           currentPage={page}
           onPageChange={(currPage) => setPage(currPage)}
         />

@@ -90,7 +90,8 @@ export default function Page({ params }: PageProps) {
         ))}
       </div>
       <Pagination
-        totalPageCount={data?.info.count}
+        totalDataCount={data?.info?.count}
+        totalPageCount={data?.info?.pages}
         currentPage={page}
         onPageChange={(currPage) => setPage(currPage)}
       />
