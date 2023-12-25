@@ -1,0 +1,33 @@
+.card {
+  display: flex;
+  margin-bottom: 16px;
+
+  .img_wrapper {
+    margin-right: 8px;
+  }
+
+  .information {
+    p {
+      margin: 0;
+    }
+    .name {
+      font-size: 1.2rem;
+      color: gray;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      display: block;
+    }
+
+    .origin {
+      font-style: italic;
+      font-size: 18px;
+    }
+
+    .type {
+      font-style: italic;
+      margin-top: 8px;
+      white-space: nowrap;
+    }
+  }
+}

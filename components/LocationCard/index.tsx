@@ -1,8 +1,8 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import Link from "next/link";
 import styles from "./locationCard.module.scss";
 import { faChevronRight } from "@fortawesome/free-solid-svg-icons";
 import Skeleton from "react-loading-skeleton";
-import Link from "next/link";
 import slugify from "slugify";
 
 type Props = {
@@ -33,9 +33,7 @@ const LocationCard = ({
       <div className={styles.data}>
         <p>{loading ? <Skeleton width="70%" /> : name}</p>
         <p>{loading ? <Skeleton width="70%" /> : type}</p>
-        <p>
-          {loading ? <Skeleton width="70%" /> : dimension ? dimension : "-"}
-        </p>
+        <p>{loading ? <Skeleton width="70%" /> : dimension || "-"}</p>
         <p>{loading ? <Skeleton width="70%" /> : resident_count}</p>
       </div>
       <div className={styles.nav}>

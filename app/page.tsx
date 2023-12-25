@@ -1,11 +1,11 @@
 // maps to root `/` URL
 "use client";
 import { useEffect, useState } from "react";
+import { useRouter } from "next/navigation";
 import { useGetLocationsByPageQuery } from "@/lib/redux/services/locationApi";
 import Pagination from "@/components/Pagination";
 import LocationCard from "@/components/LocationCard";
 import "./home.scss";
-import { useRouter } from "next/navigation";
 
 export default function Page() {
   const [page, setPage] = useState(1);
@@ -29,7 +29,7 @@ export default function Page() {
 
   return (
     <div className="container">
-      <div className="wrapper gap-10">
+      <div className="wrapper">
         {!isLoading &&
           data?.results.map((location) => (
             <LocationCard

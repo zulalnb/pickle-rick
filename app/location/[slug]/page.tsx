@@ -85,7 +85,7 @@ export default function Page({ params }: PageProps) {
             image={character.image}
             status={character.status}
             species={character.species}
-            type="list"
+            dataType="list"
           />
         ))}
       </div>

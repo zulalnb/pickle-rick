@@ -1,7 +1,7 @@
 .card {
   flex: 0 0 100%;
-  @media (min-width: 768px) {
-    flex: 0 1 33%;
+  @media (min-width: 640px) {
+    flex: 0 1 auto;
   }
 }
 
@@ -19,16 +19,6 @@
   right: 15px;
 }
 
-.status_wrapper {
-  font-size: 1em;
-  display: inline-flex;
-  vertical-align: middle;
-}
-
-.status {
-  margin-left: 10px !important;
-}
-
 .body {
   display: flex;
   justify-content: space-between;
@@ -40,6 +30,10 @@
 .information {
   display: block;
   width: 85%;
+
+  p {
+    margin: 0;
+  }
 }
 
 .name {
@@ -51,6 +45,26 @@
   display: block;
 }
 
-.information p {
-  margin: 0;
+.origin {
+  margin-top: 16px;
+  font-style: italic;
+  font-size: 18px;
+}
+
+.detail {
+  @media (min-width: 640px) {
+    flex-basis: 50%;
+  }
+  @media (min-width: 768px) {
+    flex-basis: 50%;
+  }
+  @media (min-width: 1280px) {
+    flex-basis: 40%;
+  }
+}
+
+.type {
+  font-style: italic;
+  margin-top: 8px;
+  white-space: nowrap;
 }

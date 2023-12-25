@@ -158,11 +158,17 @@ export const locationsAPI = createApi({
         return { data: characters as Characters };
       },
     }),
+    getCharacterDetail: builder.query<Character, number>({
+      query: (id) => `character/${id}`,
+    }),
   }),
 });
 
-export const { useGetLocationsByPageQuery, useGetCharactersByLocationQuery } =
-  locationsAPI;
+export const {
+  useGetLocationsByPageQuery,
+  useGetCharactersByLocationQuery,
+  useGetCharacterDetailQuery,
+} = locationsAPI;
 
 export const { getLocationsByPage, getCharactersByLocation } =
   locationsAPI.endpoints;
