@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import StoreProvider from "./Provider";
 import Navigation from "@/components/Navigation";
+
 import "../styles/global.scss";
 import 'react-loading-skeleton/dist/skeleton.css'
 

@@ -4,6 +4,8 @@ import {
   useGetCharactersByLocationQuery,
 } from "@/lib/redux/services/locationApi";
 import styles from "./character.module.scss";
+import { useAppDispatch } from "@/lib/redux/hooks";
+import { toggleFavorite } from "@/lib/redux/features/favoriteSlice";
 import CharacterCard from "@/components/CharacterCard";
 import OtherCharacterCard from "@/components/OtherCharacterCard";
 
@@ -23,6 +25,7 @@ function Page({ params }: PageProps) {
     status: data?.status,
     all: { character: data?.id },
   });
+  const dispatch = useAppDispatch();
 
   return (
     <div className="container">
@@ -37,6 +40,7 @@ function Page({ params }: PageProps) {
             type={data.type}
             gender={data.gender}
             origin={data.origin.name}
+            onToggle={() => dispatch(toggleFavorite(data))}
             dataType="detail"
           />
         )}

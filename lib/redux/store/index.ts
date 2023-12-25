@@ -1,9 +1,11 @@
 import { configureStore } from "@reduxjs/toolkit";
 import { locationsAPI } from "../services/locationApi";
+import favoriteSlice from "../features/favoriteSlice";
 
 export const makeStore = () => {
   return configureStore({
     reducer: {
+      favorites: favoriteSlice,
       [locationsAPI.reducerPath]: locationsAPI.reducer,
     },
     middleware: (getDefaultMiddleware) =>

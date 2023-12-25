@@ -1,9 +1,12 @@
 "use client";
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
+import Link from "next/link";
 import classNames from "classnames";
-import styles from "./location.module.scss";
 import { useGetCharactersByLocationQuery } from "@/lib/redux/services/locationApi";
+import styles from "./location.module.scss";
+import { toggleFavorite } from "@/lib/redux/features/favoriteSlice";
+import { useAppDispatch } from "@/lib/redux/hooks";
 import CharacterCard from "@/components/CharacterCard";
 import Pagination from "@/components/Pagination";
 import FilterButton from "@/components/FilterButton";
@@ -33,6 +36,7 @@ export default function Page({ params }: PageProps) {
   });
 
   const router = useRouter();
+  const dispatch = useAppDispatch();
 
   useEffect(() => {
     router.replace(
@@ -60,7 +64,9 @@ export default function Page({ params }: PageProps) {
     <div className="container">
       <div className={styles.header}>
         <p>Filter by status</p>
-        <p>My Favorites</p>
+        <Link href="/favorites" replace color="black">
+          My Favorites
+        </Link>
       </div>
       <div className={styles.btn_container}>
         {["alive", "dead", "unknown"].map((status) => (
@@ -86,6 +92,7 @@ export default function Page({ params }: PageProps) {
             status={character.status}
             species={character.species}
             dataType="list"
+            onToggle={() => dispatch(toggleFavorite(character))}
           />
         ))}
       </div>

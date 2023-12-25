@@ -9,6 +9,7 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import classNames from "classnames";
 import slugify from "slugify";
+import { useAppSelector } from "@/lib/redux/hooks";
 import { Status } from "@/types/general";
 
 type Params = {
@@ -21,6 +22,7 @@ type Params = {
   gender?: string;
   origin?: string;
   dataType: "list" | "detail";
+  onToggle: () => void;
 };
 
 function CharacterCard({
@@ -33,7 +35,10 @@ function CharacterCard({
   gender,
   origin,
   dataType,
+  onToggle,
 }: Params) {
+  const favorites = useAppSelector((state) => state.favorites);
+
   return (
     <div
       className={classNames(styles.card, {
@@ -41,9 +46,13 @@ function CharacterCard({
       })}
     >
       <div className={styles.image_container}>
-        <div className={styles.fav}>
-          <FontAwesomeIcon icon={faHeart} color="white" size="xl" />
-        </div>
+        <span className={styles.fav} onClick={onToggle}>
+          <FontAwesomeIcon
+            icon={faHeart}
+            color={favorites.some((item) => item.id === id) ? "red" : "white"}
+            size="xl"
+          />
+        </span>
         <Image src={image} alt={name} className={styles.image} />
       </div>
       <div className={styles.body}>
