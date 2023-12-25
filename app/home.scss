@@ -1,9 +1,17 @@
 .wrapper {
   display: flex;
   flex-wrap: wrap;
-  justify-content: space-between;
-}
+  justify-content: center;
+  align-items: center;
+  row-gap: 64px;
 
-.gap-10 {
-  gap: 10px;
+  @media (min-width: 768px) {
+    column-gap: 32px;
+    row-gap: 64px;
+    justify-content: space-between;
+  }
+
+  @media (min-width: 1280px) {
+    gap: 64px;
+  }
 }
