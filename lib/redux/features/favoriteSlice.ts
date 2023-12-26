@@ -1,7 +1,12 @@
 import { PayloadAction, createSlice } from "@reduxjs/toolkit";
 import { Character } from "@/types/characters";
 
-const initialState: Character[] = [];
+const favorites =
+  typeof window !== "undefined"
+    ? window.localStorage.getItem("favorites")
+    : null;
+
+const initialState: Character[] = favorites ? JSON.parse(favorites) : [];
 
 const favoriteSlice = createSlice({
   name: "favorite",
@@ -10,9 +15,17 @@ const favoriteSlice = createSlice({
     toggleFavorite: (state, action: PayloadAction<Character>) => {
       const isFavorite = state.find((item) => item.id == action.payload.id);
       if (isFavorite) {
-        return state.filter((item) => item.id !== action.payload.id);
+        const newState = state.filter((item) => item.id !== action.payload.id);
+        if (typeof window !== "undefined") {
+          window.localStorage.setItem("favorites", JSON.stringify(newState));
+        }
+        return newState;
       } else {
-        state.push(action.payload);
+        const newState = [...state, action.payload];
+        if (typeof window !== "undefined") {
+          window.localStorage.setItem("favorites", JSON.stringify(newState));
+        }
+        return newState;
       }
     },
   },
