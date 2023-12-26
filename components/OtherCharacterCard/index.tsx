@@ -14,7 +14,7 @@ function OtherCharacterCard({ id, name, type, gender, image, origin }: Props) {
   return (
     <div className={styles.card}>
       <div className={styles.img_wrapper}>
-        <Image src={image} alt={name} />
+        <Image src={image} alt={name} placeholder="blur" />
       </div>
       <div className={styles.information}>
         <p className={styles.name}>{name}</p>

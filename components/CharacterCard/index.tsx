@@ -1,5 +1,7 @@
+import { useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
+import Skeleton from "react-loading-skeleton";
 import styles from "./characterCard.module.scss";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
@@ -22,7 +24,8 @@ type Params = {
   gender?: string;
   origin?: string;
   dataType: "list" | "detail";
-  onToggle: () => void;
+  loading?: boolean;
+  onToggle?: () => void;
 };
 
 function CharacterCard({
@@ -36,7 +39,9 @@ function CharacterCard({
   origin,
   dataType,
   onToggle,
+  loading,
 }: Params) {
+  const [loadingImage, setLoadingImage] = useState<boolean>(true);
   const favorites = useAppSelector((state) => state.favorites);
 
   return (
@@ -45,19 +50,29 @@ function CharacterCard({
         [styles.detail]: dataType === "detail",
       })}
     >
-      <div className={styles.image_container}>
-        <span className={styles.fav} onClick={onToggle}>
-          <FontAwesomeIcon
-            icon={faHeart}
-            color={favorites.some((item) => item.id === id) ? "red" : "white"}
-            size="xl"
+      {!loading && (
+        <div className={styles.image_container}>
+          <span className={styles.fav} onClick={onToggle}>
+            <FontAwesomeIcon
+              icon={faHeart}
+              color={favorites.some((item) => item.id === id) ? "red" : "white"}
+              size="xl"
+            />
+          </span>
+          {loadingImage && <Skeleton width="100%" height={400} />}
+          <Image
+            src={image}
+            alt={name}
+            className={styles.image}
+            placeholder="blur"
+            onLoadingComplete={() => setLoadingImage(false)}
           />
-        </span>
-        <Image src={image} alt={name} className={styles.image} />
-      </div>
+        </div>
+      )}
+      {loading && <Skeleton width="100%" height={400} />}
       <div className={styles.body}>
         <div className={styles.information}>
-          <p className={styles.name}>{name}</p>
+          <p className={styles.name}>{loading ? <Skeleton width="30%" /> : name}</p>
           <p>
             <FontAwesomeIcon
               icon={faCircle}
@@ -69,13 +84,20 @@ function CharacterCard({
                   : "gray"
               }
             />{" "}
-            <span className={styles.status}>
-              {status} - {species}
-            </span>
+            {!loading && (
+              <span>
+                {status} - {species}
+              </span>
+            )}
+            {loading && <Skeleton width="20%" />}
           </p>
-          {dataType === "detail" && <p className={styles.origin}>{origin}</p>}
+          {dataType === "detail" && (
+            <p className={styles.origin}>
+              {loading ? <Skeleton width="20%" /> : origin}
+            </p>
+          )}
         </div>
-        {dataType === "list" && (
+        {!loading && dataType === "list" && (
           <Link
             href={`/character/${slugify(name, {
               replacement: "-",
@@ -87,11 +109,12 @@ function CharacterCard({
             <FontAwesomeIcon icon={faChevronRight} size="xl" color="black" />
           </Link>
         )}
-        {dataType === "detail" && (
+        {!loading && dataType === "detail" && (
           <p className={styles.type}>
             {type || "-"} / {gender}
           </p>
         )}
+        {loading && <Skeleton width="10%" />}
       </div>
     </div>
   );

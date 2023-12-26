@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "Location test",
+  title: "Characters by location",
   description: "Find all universes, characters, add to favorite ones.",
 };
 

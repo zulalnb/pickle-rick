@@ -25,11 +25,7 @@ export default function Page({ params }: PageProps) {
   const id = params.slug.split("-").slice(-1)[0];
   const [page, setPage] = useState(1);
   const [filter, setFilter] = useState<string>("all");
-  const {
-    data = { results: [], info: { pages: 0, count: 0 } },
-    isError,
-    isLoading,
-  } = useGetCharactersByLocationQuery({
+  const { data, isError, isLoading } = useGetCharactersByLocationQuery({
     id: Number(id),
     status: filter,
     page,
@@ -46,10 +42,6 @@ export default function Page({ params }: PageProps) {
 
   if (isError) {
     return <div>error</div>;
-  }
-
-  if (isLoading) {
-    return <div>Loading...</div>;
   }
 
   const handleFilter = (status: string) => {
@@ -78,11 +70,7 @@ export default function Page({ params }: PageProps) {
           />
         ))}
       </div>
-      <div
-        className={classNames(styles.wrapper, {
-          "justify-start": data.info.count < 3,
-        })}
-      >
+      <div className={classNames(styles.wrapper)}>
         {data?.results.map((character) => (
           <CharacterCard
             key={character.id}
@@ -93,8 +81,22 @@ export default function Page({ params }: PageProps) {
             species={character.species}
             dataType="list"
             onToggle={() => dispatch(toggleFavorite(character))}
+            loading={isLoading}
           />
         ))}
+        {isLoading &&
+          [1, 2, 3].map((item) => (
+            <CharacterCard
+              key={item}
+              id={1}
+              name="lorem"
+              image="loading"
+              status="unknown"
+              species="lorem"
+              dataType="list"
+              loading={isLoading}
+            />
+          ))}
       </div>
       <Pagination
         totalDataCount={data?.info?.count}

@@ -19,12 +19,13 @@ type PageProps = {
 
 function Page({ params }: PageProps) {
   const id = params.slug.split("-").slice(-1)[0];
-  const { data } = useGetCharacterDetailQuery(Number(id));
-  const { data: otherData } = useGetCharactersByLocationQuery({
-    id: Number(data?.location.url.split("/").slice(-1)),
-    status: data?.status,
-    all: { character: data?.id },
-  });
+  const { data, isLoading } = useGetCharacterDetailQuery(Number(id));
+  const { data: otherData, isLoading: isLoadingOther } =
+    useGetCharactersByLocationQuery({
+      id: Number(data?.location.url.split("/").slice(-1)),
+      status: data?.status,
+      all: { character: data?.id },
+    });
   const dispatch = useAppDispatch();
 
   return (
@@ -42,6 +43,21 @@ function Page({ params }: PageProps) {
             origin={data.origin.name}
             onToggle={() => dispatch(toggleFavorite(data))}
             dataType="detail"
+            loading={isLoading}
+          />
+        )}
+        {isLoading && (
+          <CharacterCard
+            id={0}
+            name="loading"
+            species="loading"
+            status="Alive"
+            image="loading"
+            type="loading"
+            gender="loading"
+            origin="loading"
+            dataType="detail"
+            loading={isLoading}
           />
         )}
         <div>

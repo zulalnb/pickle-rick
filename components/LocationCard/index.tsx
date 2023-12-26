@@ -37,9 +37,7 @@ const LocationCard = ({
         <p>{loading ? <Skeleton width="70%" /> : resident_count}</p>
       </div>
       <div className={styles.nav}>
-        {loading ? (
-          <Skeleton height="100%" />
-        ) : (
+        {!loading && (
           <Link
             href={`location/${slugify(name, {
               replacement: "-",
