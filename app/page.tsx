@@ -28,39 +28,41 @@ export default function Page() {
   const loadingCardArray = Array.from({ length: 4 }, (_, index) => index + 1);
 
   return (
-    <div className="container">
-      <div className="wrapper">
-        {!isLoading &&
-          data?.results.map((location) => (
-            <LocationCard
-              key={location.id}
-              id={location.id}
-              name={location.name}
-              type={location.type}
-              dimension={location.dimension}
-              resident_count={location.residents?.length}
-              loading={isLoading}
-            />
-          ))}
-        {isLoading &&
-          loadingCardArray.map((item) => (
-            <LocationCard
-              key={item}
-              id={item}
-              name="loading"
-              type="loading"
-              dimension="loading"
-              resident_count={0}
-              loading={isLoading}
-            />
-          ))}
-        <Pagination
-          totalDataCount={data?.info?.count}
-          totalPageCount={data?.info?.pages}
-          currentPage={page}
-          onPageChange={(currPage) => setPage(currPage)}
-        />
+    <main>
+      <div className="container">
+        <div className="wrapper">
+          {!isLoading &&
+            data?.results.map((location) => (
+              <LocationCard
+                key={location.id}
+                id={location.id}
+                name={location.name}
+                type={location.type}
+                dimension={location.dimension}
+                resident_count={location.residents?.length}
+                loading={isLoading}
+              />
+            ))}
+          {isLoading &&
+            loadingCardArray.map((item) => (
+              <LocationCard
+                key={item}
+                id={item}
+                name="loading"
+                type="loading"
+                dimension="loading"
+                resident_count={0}
+                loading={isLoading}
+              />
+            ))}
+          <Pagination
+            totalDataCount={data?.info?.count}
+            totalPageCount={data?.info?.pages}
+            currentPage={page}
+            onPageChange={(currPage) => setPage(currPage)}
+          />
+        </div>
       </div>
-    </div>
+    </main>
   );
 }
