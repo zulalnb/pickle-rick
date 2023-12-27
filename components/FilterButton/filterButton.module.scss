@@ -5,8 +5,16 @@
   padding: 12px 16px;
   cursor: pointer;
   white-space: nowrap;
+
+  &:hover {
+    background-color: #cfd8dc99;
+    border-color: #cfd8dc99;
+    color: white;
+  }
 }
 
 .active {
-  border-color: #2980b9;
+  color: white;
+  border-color: #cfd8dccc;
+  background-color: #cfd8dccc;
 }

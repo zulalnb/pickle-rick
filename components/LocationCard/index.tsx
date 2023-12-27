@@ -45,7 +45,9 @@ const LocationCard = ({
               lower: true,
             })}-${id}`}
           >
-            <FontAwesomeIcon icon={faChevronRight} size="2xl" color="black" />
+            <span className={styles.chevron_right}>
+              <FontAwesomeIcon icon={faChevronRight} size="2xl" color="black" />
+            </span>
           </Link>
         )}
       </div>

@@ -43,6 +43,7 @@ function CharacterCard({
 }: Params) {
   const [loadingImage, setLoadingImage] = useState<boolean>(true);
   const favorites = useAppSelector((state) => state.favorites);
+  const isFavorite = favorites.some((item) => item.id === id);
 
   return (
     <div
@@ -55,11 +56,14 @@ function CharacterCard({
           <span className={styles.fav} onClick={onToggle}>
             <FontAwesomeIcon
               icon={faHeart}
-              color={favorites.some((item) => item.id === id) ? "red" : "white"}
+              className={classNames({
+                [styles.favorited]: isFavorite,
+                [styles.notFavorited]: !isFavorite,
+              })}
               size="xl"
             />
           </span>
-          {loadingImage && <Skeleton width="100%" height={400} />}
+          {loadingImage && <Skeleton width="100%" height={300} />}
           <Image
             src={image}
             alt={name}
@@ -72,7 +76,9 @@ function CharacterCard({
       {loading && <Skeleton width="100%" height={400} />}
       <div className={styles.body}>
         <div className={styles.information}>
-          <p className={styles.name}>{loading ? <Skeleton width="30%" /> : name}</p>
+          <p className={styles.name}>
+            {loading ? <Skeleton width="30%" /> : name}
+          </p>
           <p>
             <FontAwesomeIcon
               icon={faCircle}
