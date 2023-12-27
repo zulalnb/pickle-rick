@@ -1,14 +1,15 @@
 "use client";
 import { useAppDispatch, useAppSelector } from "@/lib/redux/hooks";
-import CharacterCard from "@/components/CharacterCard";
 import { toggleFavorite } from "@/lib/redux/features/favoriteSlice";
+import styles from "./favorites.module.scss";
+import CharacterCard from "@/components/CharacterCard";
 
 function Favorites() {
   const dispatch = useAppDispatch();
   const favorites = useAppSelector((state) => state.favorites);
   return (
     <div className="container">
-      <div className="wrapper">
+      <div className={styles.wrapper}>
         {favorites.map((data) => (
           <CharacterCard
             key={data.id}
@@ -22,6 +23,7 @@ function Favorites() {
             origin={data.origin.name}
             onToggle={() => dispatch(toggleFavorite(data))}
             dataType="detail"
+            gridSystem={true}
           />
         ))}
       </div>

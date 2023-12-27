@@ -21,6 +21,7 @@ type Params = {
   origin?: string;
   dataType: "list" | "detail" | "favorite";
   loading?: boolean;
+  gridSystem?: boolean;
   onToggle?: () => void;
 };
 
@@ -36,15 +37,19 @@ function CharacterCard({
   dataType,
   onToggle,
   loading,
+  gridSystem = false,
 }: Params) {
   const [loadingImage, setLoadingImage] = useState<boolean>(true);
   const favorites = useAppSelector((state) => state.favorites);
   const isFavorite = favorites.some((item) => item.id === id);
 
+  console.log(dataType === "detail" && !gridSystem);
+  
+
   return (
     <div
       className={classNames(styles.card, {
-        [styles.detail]: dataType === "detail",
+        [styles.detail]: dataType === "detail" && !gridSystem,
       })}
     >
       {!loading && (
