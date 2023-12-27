@@ -1,0 +1,13 @@
+.chevron_right {
+  width: 48px;
+  height: 48px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background-color 0.2s ease-in-out;
+  border-radius: 50%;
+
+  &:hover {
+    background-color: #bdc3c74d;
+  }
+}

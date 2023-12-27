@@ -4,6 +4,7 @@ import styles from "./locationCard.module.scss";
 import { faChevronRight } from "@fortawesome/free-solid-svg-icons";
 import Skeleton from "react-loading-skeleton";
 import slugify from "slugify";
+import RouteButton from "../RouteButton";
 
 type Props = {
   id: number;
@@ -38,17 +39,13 @@ const LocationCard = ({
       </div>
       <div className={styles.nav}>
         {!loading && (
-          <Link
+          <RouteButton
             href={`location/${slugify(name, {
               replacement: "-",
               remove: /[*+~.()'"!:@]/g,
               lower: true,
             })}-${id}`}
-          >
-            <span className={styles.chevron_right}>
-              <FontAwesomeIcon icon={faChevronRight} size="2xl" color="black" />
-            </span>
-          </Link>
+          />
         )}
       </div>
     </div>

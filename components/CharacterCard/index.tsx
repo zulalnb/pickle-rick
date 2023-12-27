@@ -13,6 +13,7 @@ import classNames from "classnames";
 import slugify from "slugify";
 import { useAppSelector } from "@/lib/redux/hooks";
 import { Status } from "@/types/general";
+import RouteButton from "../RouteButton";
 
 type Params = {
   id: number;
@@ -23,7 +24,7 @@ type Params = {
   type?: string;
   gender?: string;
   origin?: string;
-  dataType: "list" | "detail";
+  dataType: "list" | "detail" | "favorite";
   loading?: boolean;
   onToggle?: () => void;
 };
@@ -104,16 +105,13 @@ function CharacterCard({
           )}
         </div>
         {!loading && dataType === "list" && (
-          <Link
+          <RouteButton
             href={`/character/${slugify(name, {
               replacement: "-",
               remove: /[*+~.()'"!:@]/g,
               lower: true,
             })}-${id}`}
-            replace
-          >
-            <FontAwesomeIcon icon={faChevronRight} size="xl" color="black" />
-          </Link>
+          />
         )}
         {!loading && dataType === "detail" && (
           <p className={styles.type}>

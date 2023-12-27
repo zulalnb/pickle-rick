@@ -1,4 +1,6 @@
 import Image from "next/image";
+import Link from "next/link";
+import slugify from "slugify";
 import styles from "./otherCharacterCard.module.scss";
 
 type Props = {
@@ -12,18 +14,27 @@ type Props = {
 
 function OtherCharacterCard({ id, name, type, gender, image, origin }: Props) {
   return (
-    <div className={styles.card}>
-      <div className={styles.img_wrapper}>
-        <Image src={image} alt={name} placeholder="blur" />
+    <Link
+      href={`/character/${slugify(name, {
+        replacement: "-",
+        remove: /[*+~.()'"!:@]/g,
+        lower: true,
+      })}-${id}`}
+      style={{textDecoration: "none"}}
+    >
+      <div className={styles.card}>
+        <div className={styles.img_wrapper}>
+          <Image src={image} alt={name} placeholder="blur" />
+        </div>
+        <div className={styles.information}>
+          <p className={styles.name}>{name}</p>
+          <p className={styles.origin}>{origin}</p>
+          <p className={styles.type}>
+            {type || "-"} / {gender}
+          </p>
+        </div>
       </div>
-      <div className={styles.information}>
-        <p className={styles.name}>{name}</p>
-        <p className={styles.origin}>{origin}</p>
-        <p className={styles.type}>
-          {type || "-"} / {gender}
-        </p>
-      </div>
-    </div>
+    </Link>
   );
 }
 
