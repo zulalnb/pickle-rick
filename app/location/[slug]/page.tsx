@@ -1,5 +1,5 @@
 "use client";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
 import classNames from "classnames";
@@ -34,12 +34,6 @@ export default function Page({ params }: PageProps) {
   const router = useRouter();
   const dispatch = useAppDispatch();
 
-  useEffect(() => {
-    router.replace(
-      filter === "all" ? `?page=${page}` : `?status=${filter}&page=${page}`
-    );
-  }, [page]);
-
   if (isError) {
     return <div>error</div>;
   }
@@ -50,6 +44,13 @@ export default function Page({ params }: PageProps) {
       filter !== status ? `?status=${status}&page=${page}` : `?page=${page}`
     );
     setPage(1);
+  };
+
+  const onPageChange = (page: number): void => {
+    setPage(page);
+    router.replace(
+      filter === "all" ? `?page=${page}` : `?status=${filter}&page=${page}`
+    );
   };
 
   return (
@@ -102,7 +103,7 @@ export default function Page({ params }: PageProps) {
         totalDataCount={data?.info?.count}
         totalPageCount={data?.info?.pages}
         currentPage={page}
-        onPageChange={(currPage) => setPage(currPage)}
+        onPageChange={onPageChange}
       />
     </div>
   );

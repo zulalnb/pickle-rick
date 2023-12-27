@@ -3,7 +3,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faChevronRight } from "@fortawesome/free-solid-svg-icons";
 import styles from "./routeButton.module.scss";
 
-type Props = { href: string };
+type Props = { href: string | { pathname: string; query?: any } };
 
 export default function RouteButton({ href }: Props) {
   return (

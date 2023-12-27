@@ -1,6 +1,6 @@
 // maps to root `/` URL
 "use client";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { useGetLocationsByPageQuery } from "@/lib/redux/services/locationApi";
 import Pagination from "@/components/Pagination";
@@ -17,9 +17,10 @@ export default function Page() {
 
   const router = useRouter();
 
-  useEffect(() => {
+  const onPageChange = (page: number): void => {
+    setPage(page);
     router.replace(`?page=${page}`);
-  }, [page]);
+  };
 
   if (isError) {
     return <div>Error</div>;
@@ -59,7 +60,7 @@ export default function Page() {
             totalDataCount={data?.info?.count}
             totalPageCount={data?.info?.pages}
             currentPage={page}
-            onPageChange={(currPage) => setPage(currPage)}
+            onPageChange={onPageChange}
           />
         </div>
       </div>

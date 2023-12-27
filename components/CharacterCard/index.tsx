@@ -1,14 +1,9 @@
 import { useState } from "react";
 import Image from "next/image";
-import Link from "next/link";
 import Skeleton from "react-loading-skeleton";
 import styles from "./characterCard.module.scss";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import {
-  faChevronRight,
-  faCircle,
-  faHeart,
-} from "@fortawesome/free-solid-svg-icons";
+import { faCircle, faHeart } from "@fortawesome/free-solid-svg-icons";
 import classNames from "classnames";
 import slugify from "slugify";
 import { useAppSelector } from "@/lib/redux/hooks";
